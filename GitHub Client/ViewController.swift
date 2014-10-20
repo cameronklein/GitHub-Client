@@ -8,11 +8,25 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SplitContainerViewController: UIViewController, UISplitViewControllerDelegate {
 
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    let childVC = self.childViewControllers.first as UISplitViewController
+    childVC.delegate = self
+    
+//    for name in UIFont.fontNamesForFamilyName("octicons"){
+//      println(name)
+//    }
+//    label.font = UIFont(name: "octicons", size: 48.0)
+//    label.text = "\u{F092}"
+    
+  }
+  
+  func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController!, ontoPrimaryViewController primaryViewController: UIViewController!) -> Bool {
+    return true
   }
 
   override func didReceiveMemoryWarning() {

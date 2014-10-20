@@ -14,6 +14,10 @@
 		7EC3E83319F58E8A00E137C9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7EC3E83219F58E8A00E137C9 /* Images.xcassets */; };
 		7EC3E83619F58E8A00E137C9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EC3E83419F58E8A00E137C9 /* LaunchScreen.xib */; };
 		7EC3E84219F58E8A00E137C9 /* GitHub_ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E84119F58E8A00E137C9 /* GitHub_ClientTests.swift */; };
+		7EC3E84D19F58ED700E137C9 /* octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7EC3E84C19F58EAF00E137C9 /* octicons.ttf */; };
+		7EC3E84F19F5A23200E137C9 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E84E19F5A23200E137C9 /* NetworkController.swift */; };
+		7EC3E85119F5A4AB00E137C9 /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E85019F5A4AB00E137C9 /* Repo.swift */; };
+		7EC3E85319F5A67200E137C9 /* RepoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E85219F5A67200E137C9 /* RepoTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +42,10 @@
 		7EC3E83B19F58E8A00E137C9 /* GitHub ClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GitHub ClientTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EC3E84019F58E8A00E137C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EC3E84119F58E8A00E137C9 /* GitHub_ClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHub_ClientTests.swift; sourceTree = "<group>"; };
+		7EC3E84C19F58EAF00E137C9 /* octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = octicons.ttf; sourceTree = "<group>"; };
+		7EC3E84E19F5A23200E137C9 /* NetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
+		7EC3E85019F5A4AB00E137C9 /* Repo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repo.swift; sourceTree = "<group>"; };
+		7EC3E85219F5A67200E137C9 /* RepoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +88,10 @@
 			isa = PBXGroup;
 			children = (
 				7EC3E82819F58E8A00E137C9 /* AppDelegate.swift */,
+				7EC3E85219F5A67200E137C9 /* RepoTableViewController.swift */,
 				7EC3E82D19F58E8A00E137C9 /* ViewController.swift */,
+				7EC3E84E19F5A23200E137C9 /* NetworkController.swift */,
+				7EC3E85019F5A4AB00E137C9 /* Repo.swift */,
 				7EC3E82F19F58E8A00E137C9 /* Main.storyboard */,
 				7EC3E83219F58E8A00E137C9 /* Images.xcassets */,
 				7EC3E83419F58E8A00E137C9 /* LaunchScreen.xib */,
@@ -93,6 +104,7 @@
 		7EC3E82619F58E8A00E137C9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7EC3E84B19F58E9F00E137C9 /* Fonts */,
 				7EC3E82719F58E8A00E137C9 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -113,6 +125,14 @@
 				7EC3E84019F58E8A00E137C9 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7EC3E84B19F58E9F00E137C9 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				7EC3E84C19F58EAF00E137C9 /* octicons.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,6 +217,7 @@
 			files = (
 				7EC3E83119F58E8A00E137C9 /* Main.storyboard in Resources */,
 				7EC3E83619F58E8A00E137C9 /* LaunchScreen.xib in Resources */,
+				7EC3E84D19F58ED700E137C9 /* octicons.ttf in Resources */,
 				7EC3E83319F58E8A00E137C9 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,7 +236,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EC3E84F19F5A23200E137C9 /* NetworkController.swift in Sources */,
+				7EC3E85319F5A67200E137C9 /* RepoTableViewController.swift in Sources */,
 				7EC3E82E19F58E8A00E137C9 /* ViewController.swift in Sources */,
+				7EC3E85119F5A4AB00E137C9 /* Repo.swift in Sources */,
 				7EC3E82919F58E8A00E137C9 /* AppDelegate.swift in Sources */,
 				7EC3E82C19F58E8A00E137C9 /* GitHub_Client.xcdatamodeld in Sources */,
 			);
