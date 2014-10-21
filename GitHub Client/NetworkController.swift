@@ -74,9 +74,11 @@ class NetworkController{
     dataTask.resume()
   }
   
-  func fetchReposFromSearchTerm(searchTerm: String, completionHandler : (errorDescription: String?, repos: [Repo]?) -> (Void)) {
+  
+  
+  func fetchReposFromSearchTerm(searchTerm: String, type: Scope, completionHandler : (errorDescription: String?, repos: [Repo]?) -> (Void)) {
     let session = NSURLSession.sharedSession()
-    let url = NSURL(string: "https://api.github.com/search/repositories?q=" + searchTerm /*+ "&access_token=" + token!*/)
+    let url = NSURL(string: "https://api.github.com/search/" + type.toString() + "?q=" + searchTerm)
     println(url?.description)
     let request = NSMutableURLRequest(URL: url!)
     let token = NSUserDefaults.standardUserDefaults().objectForKey("OAuth") as String
@@ -105,9 +107,7 @@ class NetworkController{
         completionHandler(errorDescription: errorDescription, repos: repos)
       })
     })
-
     dataTask.resume()
-    
   }
 
 }

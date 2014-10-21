@@ -17,17 +17,13 @@ class RepoTableViewController: UITableViewController, UITableViewDelegate, UITab
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    searchBar.delegate = self
-    
-    let refreshController = UIRefreshControl()
-    refreshController.attributedTitle = NSAttributedString(string: "Pull to Refresh")
-    refreshController.addTarget(self, action: "reloadFromTop:", forControlEvents: UIControlEvents.ValueChanged)
-    tableView.addSubview(refreshController)
-
+    setUpTableView()
+    setUpRefreshController()
     networkController = NetworkController.sharedInstance
-  
   }
+  
+  
+  //MARK: - TableViewDataSource
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if repos != nil {
@@ -58,12 +54,24 @@ class RepoTableViewController: UITableViewController, UITableViewDelegate, UITab
     return cell
   }
   
+  func setUpTableView() {
+    self.tableView.rowHeight = UITableViewAutomaticDimension
+    self.tableView.estimatedRowHeight = 150.0
+  }
+  
+  func setUpRefreshController() {
+    let refreshController = UIRefreshControl()
+    refreshController.attributedTitle = NSAttributedString(string: "Pull to Refresh")
+    refreshController.addTarget(self, action: "reloadFromTop:", forControlEvents: UIControlEvents.ValueChanged)
+    tableView.addSubview(refreshController)
+  }
+  
   func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
     currentScope = Scope(rawValue: selectedScope)!
   }
   
   func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-    networkController.fetchReposFromSearchTerm(searchBar.text, completionHandler: { (errorDescription, repos) -> (Void) in
+    networkController.fetchReposFromSearchTerm(searchBar.text, type: currentScope, completionHandler: { (errorDescription, repos) -> (Void) in
       self.repos = repos
       searchBar.resignFirstResponder()
       self.tableView.reloadData()
@@ -73,7 +81,7 @@ class RepoTableViewController: UITableViewController, UITableViewDelegate, UITab
   
   func reloadFromTop(sender: UIRefreshControl){
     
-    networkController.fetchReposFromSearchTerm("Swift", completionHandler: { (errorDescription, repos) -> (Void) in
+    networkController.fetchReposFromSearchTerm(searchBar.text, type: currentScope, completionHandler: { (errorDescription, repos) -> (Void) in
       if errorDescription == nil {
         self.repos = repos
         self.tableView.reloadData()
@@ -89,4 +97,13 @@ class RepoTableViewController: UITableViewController, UITableViewDelegate, UITab
 
 enum Scope : Int {
   case Repos = 0, Users
+  
+  func toString() -> String{
+    switch self{
+    case Repos:
+      return "repositories"
+    case Users:
+      return "users"
+    }
+  }
 }

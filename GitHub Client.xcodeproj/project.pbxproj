@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7E27A3BA19F5B74500240B21 /* RepoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E27A3B919F5B74500240B21 /* RepoCell.swift */; };
 		7E95F4E519F5F93C008C690D /* octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E95F4E419F5F93C008C690D /* octicons.ttf */; };
+		7E98963519F70AE100990574 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E98963419F70AE100990574 /* User.swift */; };
 		7EC3E82919F58E8A00E137C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E82819F58E8A00E137C9 /* AppDelegate.swift */; };
 		7EC3E82C19F58E8A00E137C9 /* GitHub_Client.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E82A19F58E8A00E137C9 /* GitHub_Client.xcdatamodeld */; };
 		7EC3E82E19F58E8A00E137C9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E82D19F58E8A00E137C9 /* ViewController.swift */; };
@@ -34,6 +35,7 @@
 /* Begin PBXFileReference section */
 		7E27A3B919F5B74500240B21 /* RepoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoCell.swift; sourceTree = "<group>"; };
 		7E95F4E419F5F93C008C690D /* octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = octicons.ttf; sourceTree = "<group>"; };
+		7E98963419F70AE100990574 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7EC3E82319F58E8A00E137C9 /* GitHub Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GitHub Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EC3E82719F58E8A00E137C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EC3E82819F58E8A00E137C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				7EC3E85019F5A4AB00E137C9 /* Repo.swift */,
+				7E98963419F70AE100990574 /* User.swift */,
 			);
 			name = MODEL;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				7E27A3BA19F5B74500240B21 /* RepoCell.swift in Sources */,
 				7EC3E85319F5A67200E137C9 /* RepoTableViewController.swift in Sources */,
 				7EC3E82E19F58E8A00E137C9 /* ViewController.swift in Sources */,
+				7E98963519F70AE100990574 /* User.swift in Sources */,
 				7EC3E85119F5A4AB00E137C9 /* Repo.swift in Sources */,
 				7EC3E82919F58E8A00E137C9 /* AppDelegate.swift in Sources */,
 				7EC3E82C19F58E8A00E137C9 /* GitHub_Client.xcdatamodeld in Sources */,

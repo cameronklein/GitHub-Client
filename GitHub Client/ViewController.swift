@@ -18,21 +18,12 @@ class SplitContainerViewController: UIViewController, UISplitViewControllerDeleg
     let childVC = self.childViewControllers.first as UISplitViewController
     childVC.delegate = self
     
-    
     dispatch_after(1, dispatch_get_main_queue(), {
       if NSUserDefaults.standardUserDefaults().objectForKey("OAuth") == nil {
        self.networkController.requestOAuthAccess()
       }
+      
     })
-    
-    
-    
-//    for name in UIFont.fontNamesForFamilyName("octicons"){
-//      println(name)
-//    }
-//    label.font = UIFont(name: "octicons", size: 48.0)
-//    label.text = "\u{F092}"
-    
   }
   
   func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController!, ontoPrimaryViewController primaryViewController: UIViewController!) -> Bool {
