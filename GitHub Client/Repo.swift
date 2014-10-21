@@ -16,12 +16,18 @@ class Repo {
   var url : String!
   var description: String!
   var owner : String!
+  var stars: Int!
+  var watchers : Int!
+  var forks: Int!
   
   init(dictionary: NSDictionary){
-    id = dictionary["id"] as Int
-    name = dictionary["name"] as String
-    url = dictionary["html_url"] as String
-    description = dictionary["description"] as String
+    id          = dictionary["id"]                as Int
+    name        = dictionary["name"]              as String
+    url         = dictionary["html_url"]          as String
+    description = dictionary["description"]       as String
+    stars       = dictionary["stargazers_count"]  as Int
+    watchers    = dictionary["watchers_count"]    as Int
+    forks       = dictionary["forks_count"]       as Int
     
     let ownerDictionary = dictionary["owner"] as NSDictionary
     owner = ownerDictionary["login"] as String

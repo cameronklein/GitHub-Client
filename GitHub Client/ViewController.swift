@@ -10,12 +10,15 @@ import UIKit
 
 class SplitContainerViewController: UIViewController, UISplitViewControllerDelegate {
 
+  let networkController = NetworkController.sharedInstance
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     let childVC = self.childViewControllers.first as UISplitViewController
     childVC.delegate = self
+    
+    networkController.requestOAuthAccess()
     
 //    for name in UIFont.fontNamesForFamilyName("octicons"){
 //      println(name)

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E27A3BA19F5B74500240B21 /* RepoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E27A3B919F5B74500240B21 /* RepoCell.swift */; };
+		7E95F4E519F5F93C008C690D /* octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E95F4E419F5F93C008C690D /* octicons.ttf */; };
 		7EC3E82919F58E8A00E137C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E82819F58E8A00E137C9 /* AppDelegate.swift */; };
 		7EC3E82C19F58E8A00E137C9 /* GitHub_Client.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E82A19F58E8A00E137C9 /* GitHub_Client.xcdatamodeld */; };
 		7EC3E82E19F58E8A00E137C9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E82D19F58E8A00E137C9 /* ViewController.swift */; };
@@ -14,7 +16,6 @@
 		7EC3E83319F58E8A00E137C9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7EC3E83219F58E8A00E137C9 /* Images.xcassets */; };
 		7EC3E83619F58E8A00E137C9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EC3E83419F58E8A00E137C9 /* LaunchScreen.xib */; };
 		7EC3E84219F58E8A00E137C9 /* GitHub_ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E84119F58E8A00E137C9 /* GitHub_ClientTests.swift */; };
-		7EC3E84D19F58ED700E137C9 /* octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7EC3E84C19F58EAF00E137C9 /* octicons.ttf */; };
 		7EC3E84F19F5A23200E137C9 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E84E19F5A23200E137C9 /* NetworkController.swift */; };
 		7EC3E85119F5A4AB00E137C9 /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E85019F5A4AB00E137C9 /* Repo.swift */; };
 		7EC3E85319F5A67200E137C9 /* RepoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E85219F5A67200E137C9 /* RepoTableViewController.swift */; };
@@ -31,6 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7E27A3B919F5B74500240B21 /* RepoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoCell.swift; sourceTree = "<group>"; };
+		7E95F4E419F5F93C008C690D /* octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = octicons.ttf; sourceTree = "<group>"; };
 		7EC3E82319F58E8A00E137C9 /* GitHub Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GitHub Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EC3E82719F58E8A00E137C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EC3E82819F58E8A00E137C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -42,7 +45,6 @@
 		7EC3E83B19F58E8A00E137C9 /* GitHub ClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GitHub ClientTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EC3E84019F58E8A00E137C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EC3E84119F58E8A00E137C9 /* GitHub_ClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHub_ClientTests.swift; sourceTree = "<group>"; };
-		7EC3E84C19F58EAF00E137C9 /* octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = octicons.ttf; sourceTree = "<group>"; };
 		7EC3E84E19F5A23200E137C9 /* NetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		7EC3E85019F5A4AB00E137C9 /* Repo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repo.swift; sourceTree = "<group>"; };
 		7EC3E85219F5A67200E137C9 /* RepoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoTableViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +68,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7EA4D69119F5E7D100EA3883 /* CONTROLLER */ = {
+			isa = PBXGroup;
+			children = (
+				7EC3E85219F5A67200E137C9 /* RepoTableViewController.swift */,
+				7EC3E82D19F58E8A00E137C9 /* ViewController.swift */,
+				7EC3E84E19F5A23200E137C9 /* NetworkController.swift */,
+				7EC3E82819F58E8A00E137C9 /* AppDelegate.swift */,
+			);
+			name = CONTROLLER;
+			sourceTree = "<group>";
+		};
+		7EA4D69219F5E7E700EA3883 /* MODEL */ = {
+			isa = PBXGroup;
+			children = (
+				7EC3E85019F5A4AB00E137C9 /* Repo.swift */,
+			);
+			name = MODEL;
+			sourceTree = "<group>";
+		};
+		7EA4D69319F5E7F100EA3883 /* VIEW */ = {
+			isa = PBXGroup;
+			children = (
+				7EC3E82F19F58E8A00E137C9 /* Main.storyboard */,
+				7E27A3B919F5B74500240B21 /* RepoCell.swift */,
+			);
+			name = VIEW;
+			sourceTree = "<group>";
+		};
 		7EC3E81A19F58E8900E137C9 = {
 			isa = PBXGroup;
 			children = (
@@ -87,12 +117,9 @@
 		7EC3E82519F58E8A00E137C9 /* GitHub Client */ = {
 			isa = PBXGroup;
 			children = (
-				7EC3E82819F58E8A00E137C9 /* AppDelegate.swift */,
-				7EC3E85219F5A67200E137C9 /* RepoTableViewController.swift */,
-				7EC3E82D19F58E8A00E137C9 /* ViewController.swift */,
-				7EC3E84E19F5A23200E137C9 /* NetworkController.swift */,
-				7EC3E85019F5A4AB00E137C9 /* Repo.swift */,
-				7EC3E82F19F58E8A00E137C9 /* Main.storyboard */,
+				7EA4D69119F5E7D100EA3883 /* CONTROLLER */,
+				7EA4D69219F5E7E700EA3883 /* MODEL */,
+				7EA4D69319F5E7F100EA3883 /* VIEW */,
 				7EC3E83219F58E8A00E137C9 /* Images.xcassets */,
 				7EC3E83419F58E8A00E137C9 /* LaunchScreen.xib */,
 				7EC3E82A19F58E8A00E137C9 /* GitHub_Client.xcdatamodeld */,
@@ -130,7 +157,7 @@
 		7EC3E84B19F58E9F00E137C9 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				7EC3E84C19F58EAF00E137C9 /* octicons.ttf */,
+				7E95F4E419F5F93C008C690D /* octicons.ttf */,
 			);
 			name = Fonts;
 			sourceTree = "<group>";
@@ -217,7 +244,7 @@
 			files = (
 				7EC3E83119F58E8A00E137C9 /* Main.storyboard in Resources */,
 				7EC3E83619F58E8A00E137C9 /* LaunchScreen.xib in Resources */,
-				7EC3E84D19F58ED700E137C9 /* octicons.ttf in Resources */,
+				7E95F4E519F5F93C008C690D /* octicons.ttf in Resources */,
 				7EC3E83319F58E8A00E137C9 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -237,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7EC3E84F19F5A23200E137C9 /* NetworkController.swift in Sources */,
+				7E27A3BA19F5B74500240B21 /* RepoCell.swift in Sources */,
 				7EC3E85319F5A67200E137C9 /* RepoTableViewController.swift in Sources */,
 				7EC3E82E19F58E8A00E137C9 /* ViewController.swift in Sources */,
 				7EC3E85119F5A4AB00E137C9 /* Repo.swift in Sources */,
@@ -435,6 +463,7 @@
 				7EC3E84719F58E8A00E137C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7EC3E84819F58E8A00E137C9 /* Build configuration list for PBXNativeTarget "GitHub ClientTests" */ = {
 			isa = XCConfigurationList;
@@ -443,6 +472,7 @@
 				7EC3E84A19F58E8A00E137C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
