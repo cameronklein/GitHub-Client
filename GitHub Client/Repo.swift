@@ -31,8 +31,7 @@ class Repo {
     
     let ownerDictionary = dictionary["owner"] as NSDictionary
     owner = ownerDictionary["login"] as String
-    
-    
+  
   }
   
   class func parseJSONIntoRepos (data: NSData) -> [Repo]? {

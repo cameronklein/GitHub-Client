@@ -18,7 +18,11 @@ class SplitContainerViewController: UIViewController, UISplitViewControllerDeleg
     let childVC = self.childViewControllers.first as UISplitViewController
     childVC.delegate = self
     
-    networkController.requestOAuthAccess()
+    dispatch_after(1, dispatch_get_main_queue(), {
+      self.networkController.requestOAuthAccess()
+    })
+    
+    
     
 //    for name in UIFont.fontNamesForFamilyName("octicons"){
 //      println(name)
@@ -31,6 +35,8 @@ class SplitContainerViewController: UIViewController, UISplitViewControllerDeleg
   func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController!, ontoPrimaryViewController primaryViewController: UIViewController!) -> Bool {
     return true
   }
+  
+  
 
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()

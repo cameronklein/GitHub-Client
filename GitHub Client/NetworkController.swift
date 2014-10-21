@@ -23,7 +23,7 @@ class NetworkController{
   let scope           = "scope=user,repo"
   let redirectURL     = "redirect_uri=camsgithubclient://test"
   let githubTokenURL  = "https://github.com/login/oauth/access_token"
-  var token :String!
+  var token : String?
   
   func requestOAuthAccess() {
     let url = githubOAuthURL + clientID + "&" + redirectURL + "&" + scope
@@ -48,21 +48,23 @@ class NetworkController{
     request.HTTPBody = postData
     
     let dataTask = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
-      
       if error != nil {
         println(error.description)
       } else {
         let response = response as NSHTTPURLResponse
         switch response.statusCode {
         case 200...299:
+          
           var tokenResponse = NSString(data: data!, encoding: NSASCIIStringEncoding)!
           let response = tokenResponse as String
           println(response)
           let token = response.componentsSeparatedByString("&").first?.componentsSeparatedByString("=").last
-          println(token)
+          println(token!)
 //          self.headers = NSMutableDictionary()
 //          self.headers["Authorization"] = NSString(UTF8String: "token " + token!)
-          self.token = token
+          println("Assigning Token!")
+          self.token = token!
+          println(self.token!)
         case 400...499:
           println("Something went wrong on our end.")
         case 500...599:
@@ -78,12 +80,12 @@ class NetworkController{
   }
   
   func fetchReposFromSearchTerm(searchTerm: String, completionHandler : (errorDescription: String?, repos: [Repo]?) -> (Void)) {
-    //let config = NSURLSessionConfiguration()
-    //config.HTTPAdditionalHeaders = headers
     let session = NSURLSession.sharedSession()
+    let url = NSURL(string: "https://api.github.com/search/repositories?q=" + searchTerm /*+ "&access_token=" + token!*/)
+    println(url?.description)
+    let request = NSMutableURLRequest(URL: url!)
+    request.setValue("token " + token!, forHTTPHeaderField: "Authorization")
     
-    let url = NSURL(string: "https://api.github.com/search/repositories?q=" + searchTerm + "&access_token" + token)
-    let request = NSURLRequest(URL: url!)
     let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
       var repos : [Repo]?
       var errorDescription : String?

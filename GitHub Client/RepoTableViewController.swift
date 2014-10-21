@@ -8,31 +8,25 @@
 
 import UIKit
 
-class RepoTableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
+class RepoTableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
   
   var networkController : NetworkController!
   var repos : [Repo]?
-  
+  var currentScope: Scope = .Repos
+  @IBOutlet weak var searchBar: UISearchBar!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.navigationController?.title = "GitHub"
+    searchBar.delegate = self
     
+    let refreshController = UIRefreshControl()
+    refreshController.attributedTitle = NSAttributedString(string: "Pull to Refresh")
+    refreshController.addTarget(self, action: "reloadFromTop:", forControlEvents: UIControlEvents.ValueChanged)
+    tableView.addSubview(refreshController)
+
     networkController = NetworkController.sharedInstance
-    
-    networkController.fetchReposFromSearchTerm("Swift", completionHandler: { (errorDescription, repos) -> (Void) in
-      if errorDescription == nil {
-          self.repos = repos
-          self.tableView.reloadData()
-      } else {
-        let alert = UIAlertController(title: "OOPS!", message: errorDescription, preferredStyle: UIAlertControllerStyle.Alert)
-        let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
-        alert.addAction(ok)
-        self.presentViewController(alert, animated: true, completion: nil)
-      }
-    })
-    
+  
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -63,7 +57,36 @@ class RepoTableViewController: UITableViewController, UITableViewDelegate, UITab
     
     return cell
   }
+  
+  func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+    currentScope = Scope(rawValue: selectedScope)!
+  }
+  
+  func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    networkController.fetchReposFromSearchTerm(searchBar.text, completionHandler: { (errorDescription, repos) -> (Void) in
+      self.repos = repos
+      searchBar.resignFirstResponder()
+      self.tableView.reloadData()
+    })
+  }
+  
+  
+  func reloadFromTop(sender: UIRefreshControl){
+    
+    networkController.fetchReposFromSearchTerm("Swift", completionHandler: { (errorDescription, repos) -> (Void) in
+      if errorDescription == nil {
+        self.repos = repos
+        self.tableView.reloadData()
+      } else {
+        let alert = UIAlertController(title: "OOPS!", message: errorDescription, preferredStyle: UIAlertControllerStyle.Alert)
+        let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
+        alert.addAction(ok)
+        self.presentViewController(alert, animated: true, completion: nil)
+      }
+    })
+  }
+}
 
-
-
+enum Scope : Int {
+  case Repos = 0, Users
 }
