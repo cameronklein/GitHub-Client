@@ -18,8 +18,11 @@ class SplitContainerViewController: UIViewController, UISplitViewControllerDeleg
     let childVC = self.childViewControllers.first as UISplitViewController
     childVC.delegate = self
     
+    
     dispatch_after(1, dispatch_get_main_queue(), {
-      self.networkController.requestOAuthAccess()
+      if NSUserDefaults.standardUserDefaults().objectForKey("OAuth") == nil {
+       self.networkController.requestOAuthAccess()
+      }
     })
     
     

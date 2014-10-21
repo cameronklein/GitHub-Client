@@ -23,7 +23,6 @@ class NetworkController{
   let scope           = "scope=user,repo"
   let redirectURL     = "redirect_uri=camsgithubclient://test"
   let githubTokenURL  = "https://github.com/login/oauth/access_token"
-  var token : String?
   
   func requestOAuthAccess() {
     let url = githubOAuthURL + clientID + "&" + redirectURL + "&" + scope
@@ -54,17 +53,13 @@ class NetworkController{
         let response = response as NSHTTPURLResponse
         switch response.statusCode {
         case 200...299:
-          
           var tokenResponse = NSString(data: data!, encoding: NSASCIIStringEncoding)!
           let response = tokenResponse as String
           println(response)
           let token = response.componentsSeparatedByString("&").first?.componentsSeparatedByString("=").last
           println(token!)
-//          self.headers = NSMutableDictionary()
-//          self.headers["Authorization"] = NSString(UTF8String: "token " + token!)
-          println("Assigning Token!")
-          self.token = token!
-          println(self.token!)
+          NSUserDefaults.standardUserDefaults().setObject(NSString(string: token!), forKey: "OAuth")
+          NSUserDefaults.standardUserDefaults().synchronize()
         case 400...499:
           println("Something went wrong on our end.")
         case 500...599:
@@ -84,7 +79,9 @@ class NetworkController{
     let url = NSURL(string: "https://api.github.com/search/repositories?q=" + searchTerm /*+ "&access_token=" + token!*/)
     println(url?.description)
     let request = NSMutableURLRequest(URL: url!)
-    request.setValue("token " + token!, forHTTPHeaderField: "Authorization")
+    let token = NSUserDefaults.standardUserDefaults().objectForKey("OAuth") as String
+    
+    request.setValue("token " + token, forHTTPHeaderField: "Authorization")
     
     let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
       var repos : [Repo]?
