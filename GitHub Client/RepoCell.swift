@@ -9,7 +9,7 @@
 import UIKit
 
 class RepoCell: UITableViewCell {
-  
+  @IBOutlet weak var avatarImage: UIImageView!
   @IBOutlet weak var ownerName: UILabel!
   @IBOutlet weak var watchers: UILabel!
   @IBOutlet weak var forks: UILabel!

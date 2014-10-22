@@ -24,6 +24,8 @@ class NetworkController{
   let redirectURL     = "redirect_uri=camsgithubclient://test"
   let githubTokenURL  = "https://github.com/login/oauth/access_token"
   
+  var usersRunFlag    = false
+  
   func requestOAuthAccess() {
     let url = githubOAuthURL + clientID + "&" + redirectURL + "&" + scope
     UIApplication.sharedApplication().openURL(NSURL(string: url)!)
@@ -74,19 +76,25 @@ class NetworkController{
     dataTask.resume()
   }
   
-  
-  
-  func fetchReposFromSearchTerm(searchTerm: String, type: Scope, completionHandler : (errorDescription: String?, repos: [Repo]?) -> (Void)) {
+  func fetchReposFromSearchTerm(searchTerm: String, type: Scope, tempArray: [Repo]? = nil, completionHandler : (errorDescription: String?, result: [AnyObject]?) -> (Void)) {
     let session = NSURLSession.sharedSession()
-    let url = NSURL(string: "https://api.github.com/search/" + type.toString() + "?q=" + searchTerm)
+    
+    var checkedType = type
+    if checkedType == .All{
+      if tempArray == nil{
+        checkedType = .Repos
+      } else {
+        checkedType = .Users
+      }
+    }
+    
+    let newSearchTerm = searchTerm.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.LiteralSearch, range: nil)
+    let url = NSURL(string: "https://api.github.com/search/" + checkedType.toString() + "?q=" + newSearchTerm)
     println(url?.description)
     let request = NSMutableURLRequest(URL: url!)
     let token = NSUserDefaults.standardUserDefaults().objectForKey("OAuth") as String
-    
     request.setValue("token " + token, forHTTPHeaderField: "Authorization")
-    
     let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
-      var repos : [Repo]?
       var errorDescription : String?
       if error != nil {
         errorDescription = "Server request not sent. Something is wrong."
@@ -94,7 +102,42 @@ class NetworkController{
         let response = response as NSHTTPURLResponse
         switch response.statusCode {
         case 200...299:
-          repos = Repo.parseJSONIntoRepos(data)
+          switch type{
+          case .Repos:
+            let result = Repo.parseJSONIntoRepos(data) as [AnyObject]?
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+              completionHandler(errorDescription: errorDescription, result: result)
+            })
+          case .Users:
+            let result = User.parseJSONIntoUsers(data) as [AnyObject]?
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+              completionHandler(errorDescription: errorDescription, result: result)
+            })
+          case .All:
+            if tempArray == nil {
+              let result = Repo.parseJSONIntoRepos(data)
+              self.fetchReposFromSearchTerm(searchTerm, type: .All, tempArray: result, completionHandler: completionHandler)
+            } else {
+              var result = User.parseJSONIntoUsers(data)
+              var totalArray = [Scorable]()
+              for item in result! {
+                totalArray.append(item)
+                println("User Added!")
+              }
+              for item in tempArray! {
+                totalArray.append(item)
+                println("Repo Added!")
+              }
+              totalArray.sort({ $0.score > $1.score })
+              var thirdArray = [AnyObject]()
+              for item in totalArray{
+                thirdArray.append(item)
+              }
+              NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                completionHandler(errorDescription: errorDescription, result: thirdArray)
+              })
+            }
+          }
         case 400...499:
           errorDescription = "Something went wrong on our end."
         case 500...599:
@@ -103,9 +146,11 @@ class NetworkController{
           errorDescription = "Something is very, very wrong."
         }
       }
-      NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-        completionHandler(errorDescription: errorDescription, repos: repos)
-      })
+      if let error = errorDescription{
+        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+          completionHandler(errorDescription: error, result: nil)
+        })
+      }
     })
     dataTask.resume()
   }

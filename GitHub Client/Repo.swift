@@ -9,28 +9,32 @@
 import Foundation
 
 
-class Repo {
+class Repo : Scorable {
   
   var id : Int!
   var name : String!
   var url : String!
-  var description: String!
+  var description: String?
   var owner : String!
   var stars: Int!
   var watchers : Int!
   var forks: Int!
+  var avatarURL : String!
+  var score : Double!
   
   init(dictionary: NSDictionary){
     id          = dictionary["id"]                as Int
     name        = dictionary["name"]              as String
     url         = dictionary["html_url"]          as String
-    description = dictionary["description"]       as String
+    description = dictionary["description"]       as? String
     stars       = dictionary["stargazers_count"]  as Int
     watchers    = dictionary["watchers_count"]    as Int
     forks       = dictionary["forks_count"]       as Int
+    score       = dictionary["score"]             as Double
     
     let ownerDictionary = dictionary["owner"] as NSDictionary
     owner = ownerDictionary["login"] as String
+    avatarURL = ownerDictionary["avatar_url"] as String
   
   }
   

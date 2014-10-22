@@ -11,80 +11,98 @@ import UIKit
 class RepoTableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
   
   var networkController : NetworkController!
-  var repos : [Repo]?
+  var backingArray : [AnyObject]?
   var currentScope: Scope = .Repos
+  var refreshController : UIRefreshControl!
+  var imageQueue = NSOperationQueue()
+  
   @IBOutlet weak var searchBar: UISearchBar!
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    imageQueue = NSOperationQueue()
     setUpTableView()
-    setUpRefreshController()
     networkController = NetworkController.sharedInstance
   }
-  
   
   //MARK: - TableViewDataSource
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if repos != nil {
-      return repos!.count
+    if backingArray != nil {
+      return backingArray!.count
     } else {
       return 0
     }
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("REPO_CELL", forIndexPath: indexPath) as RepoCell
+    let object: AnyObject = backingArray![indexPath.row]
     
-    let repo = repos![indexPath.row]
+    if let repo = object as? Repo {
+      let cell = tableView.dequeueReusableCellWithIdentifier("REPO_CELL", forIndexPath: indexPath) as RepoCell
+      cell.avatarImage.image = nil
+      cell.repoName.text = repo.name
+      cell.ownerName.text = "By " + repo.owner
+      cell.stars.text = repo.stars.description
+      cell.watchers.text = repo.watchers.description
+      cell.forks.text = repo.forks.description
+      cell.descriptionLabel.text = repo.description
+      cell.forkIcon.text = "\u{F020}"
+      cell.starsIcon.text = "\u{F02A}"
+      cell.watchersIcon.text = "\u{F04E}"
+      self.imageQueue.addOperationWithBlock({ () -> Void in
+        let url = NSURL(string: repo.avatarURL!)
+        let data = NSData(contentsOfURL: url!)
+        let image = UIImage(data: data!)
+        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+          cell.avatarImage.image = image
+        })
+      })
+      return cell
+    }
     
-    cell.repoName.text = repo.name
-    cell.ownerName.text = "By " + repo.owner
-    cell.stars.text = repo.stars.description
-    cell.watchers.text = repo.watchers.description
-    cell.forks.text = repo.forks.description
-    cell.descriptionLabel.text = repo.description
-    
-    cell.forkIcon.text = "\u{F020}"
-    cell.starsIcon.text = "\u{F02A}"
-    cell.watchersIcon.text = "\u{F04E}"
-    
-    cell.backgroundColor = UIColor(red: 114.0, green: 160.0, blue: 191.0, alpha: 1.0)
-    
-    return cell
+    if let user = object as? User {
+      let cell = tableView.dequeueReusableCellWithIdentifier("USER_CELL", forIndexPath: indexPath) as UserCell
+      cell.avatarImage.image = nil
+      cell.username.text = user.name
+      self.imageQueue.addOperationWithBlock({ () -> Void in
+        let url = NSURL(string: user.avatarURL!)
+        let data = NSData(contentsOfURL: url!)
+        let image = UIImage(data: data!)
+        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+          cell.avatarImage.image = image
+        })
+      })
+      return cell
+    }
+    return UITableViewCell()
   }
+  
   
   func setUpTableView() {
     self.tableView.rowHeight = UITableViewAutomaticDimension
     self.tableView.estimatedRowHeight = 150.0
   }
   
-  func setUpRefreshController() {
-    let refreshController = UIRefreshControl()
-    refreshController.attributedTitle = NSAttributedString(string: "Pull to Refresh")
-    refreshController.addTarget(self, action: "reloadFromTop:", forControlEvents: UIControlEvents.ValueChanged)
-    tableView.addSubview(refreshController)
-  }
-  
   func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
     currentScope = Scope(rawValue: selectedScope)!
+    if searchBar.text != nil{
+      doSearch()
+    }
   }
   
   func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-    networkController.fetchReposFromSearchTerm(searchBar.text, type: currentScope, completionHandler: { (errorDescription, repos) -> (Void) in
-      self.repos = repos
-      searchBar.resignFirstResponder()
-      self.tableView.reloadData()
-    })
+    doSearch()
+    searchBar.resignFirstResponder()
   }
   
-  
-  func reloadFromTop(sender: UIRefreshControl){
-    
-    networkController.fetchReposFromSearchTerm(searchBar.text, type: currentScope, completionHandler: { (errorDescription, repos) -> (Void) in
+  func doSearch(){
+    networkController.fetchReposFromSearchTerm(searchBar.text, type: currentScope, completionHandler: { (errorDescription, result) -> (Void) in
       if errorDescription == nil {
-        self.repos = repos
+        self.backingArray = result
         self.tableView.reloadData()
+        self.changeTitleTo("Showing results for \"\(self.searchBar.text)\"")
+        
       } else {
         let alert = UIAlertController(title: "OOPS!", message: errorDescription, preferredStyle: UIAlertControllerStyle.Alert)
         let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
@@ -93,10 +111,18 @@ class RepoTableViewController: UITableViewController, UITableViewDelegate, UITab
       }
     })
   }
+  
+  func changeTitleTo(string : String){
+    UIView.animateWithDuration(1.0, animations: { () -> Void in
+      self.navigationItem.title = string
+    })
+  }
+  
+
 }
 
 enum Scope : Int {
-  case Repos = 0, Users
+  case Repos = 0, Users, All
   
   func toString() -> String{
     switch self{
@@ -104,6 +130,8 @@ enum Scope : Int {
       return "repositories"
     case Users:
       return "users"
+    case All:
+      return "all"
     }
   }
 }

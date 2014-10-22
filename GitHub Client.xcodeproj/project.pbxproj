@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		7E27A3BA19F5B74500240B21 /* RepoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E27A3B919F5B74500240B21 /* RepoCell.swift */; };
+		7E7C148E19F743CD008E9C3B /* Scorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7C148D19F743CD008E9C3B /* Scorable.swift */; };
 		7E95F4E519F5F93C008C690D /* octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E95F4E419F5F93C008C690D /* octicons.ttf */; };
 		7E98963519F70AE100990574 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E98963419F70AE100990574 /* User.swift */; };
+		7E98963919F713DF00990574 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E98963819F713DF00990574 /* UserCell.swift */; };
 		7EC3E82919F58E8A00E137C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E82819F58E8A00E137C9 /* AppDelegate.swift */; };
 		7EC3E82C19F58E8A00E137C9 /* GitHub_Client.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E82A19F58E8A00E137C9 /* GitHub_Client.xcdatamodeld */; };
 		7EC3E82E19F58E8A00E137C9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E82D19F58E8A00E137C9 /* ViewController.swift */; };
@@ -34,8 +36,11 @@
 
 /* Begin PBXFileReference section */
 		7E27A3B919F5B74500240B21 /* RepoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoCell.swift; sourceTree = "<group>"; };
+		7E7C148D19F743CD008E9C3B /* Scorable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scorable.swift; sourceTree = "<group>"; };
+		7E7C148F19F74E2A008E9C3B /* Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		7E95F4E419F5F93C008C690D /* octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = octicons.ttf; sourceTree = "<group>"; };
 		7E98963419F70AE100990574 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		7E98963819F713DF00990574 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserCell.swift; path = ../UserCell.swift; sourceTree = "<group>"; };
 		7EC3E82319F58E8A00E137C9 /* GitHub Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GitHub Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EC3E82719F58E8A00E137C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EC3E82819F58E8A00E137C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +91,7 @@
 			children = (
 				7EC3E85019F5A4AB00E137C9 /* Repo.swift */,
 				7E98963419F70AE100990574 /* User.swift */,
+				7E7C148D19F743CD008E9C3B /* Scorable.swift */,
 			);
 			name = MODEL;
 			sourceTree = "<group>";
@@ -95,6 +101,7 @@
 			children = (
 				7EC3E82F19F58E8A00E137C9 /* Main.storyboard */,
 				7E27A3B919F5B74500240B21 /* RepoCell.swift */,
+				7E98963819F713DF00990574 /* UserCell.swift */,
 			);
 			name = VIEW;
 			sourceTree = "<group>";
@@ -102,6 +109,7 @@
 		7EC3E81A19F58E8900E137C9 = {
 			isa = PBXGroup;
 			children = (
+				7E7C148F19F74E2A008E9C3B /* Header.h */,
 				7EC3E82519F58E8A00E137C9 /* GitHub Client */,
 				7EC3E83E19F58E8A00E137C9 /* GitHub ClientTests */,
 				7EC3E82419F58E8A00E137C9 /* Products */,
@@ -270,7 +278,9 @@
 				7E27A3BA19F5B74500240B21 /* RepoCell.swift in Sources */,
 				7EC3E85319F5A67200E137C9 /* RepoTableViewController.swift in Sources */,
 				7EC3E82E19F58E8A00E137C9 /* ViewController.swift in Sources */,
+				7E7C148E19F743CD008E9C3B /* Scorable.swift in Sources */,
 				7E98963519F70AE100990574 /* User.swift in Sources */,
+				7E98963919F713DF00990574 /* UserCell.swift in Sources */,
 				7EC3E85119F5A4AB00E137C9 /* Repo.swift in Sources */,
 				7EC3E82919F58E8A00E137C9 /* AppDelegate.swift in Sources */,
 				7EC3E82C19F58E8A00E137C9 /* GitHub_Client.xcdatamodeld in Sources */,

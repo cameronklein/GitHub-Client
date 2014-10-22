@@ -9,16 +9,18 @@
 import Foundation
 
 
-class User {
+class User : Scorable{
   
   var id : Int!
   var name : String!
   var avatarURL : String!
+  var score : Double!
   
   init(dictionary: NSDictionary){
     id          = dictionary["id"]                as Int
     name        = dictionary["login"]             as String
     avatarURL   = dictionary["avatar_url"]        as String
+    score       = dictionary["score"]             as Double
 
   }
   
