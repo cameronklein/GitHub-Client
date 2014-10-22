@@ -64,7 +64,7 @@ class RepoTableViewController: UITableViewController, UITableViewDelegate, UITab
     if let user = object as? User {
       let cell = tableView.dequeueReusableCellWithIdentifier("USER_CELL", forIndexPath: indexPath) as UserCell
       cell.avatarImage.image = nil
-      cell.username.text = user.name
+      cell.username.text = user.login
       self.imageQueue.addOperationWithBlock({ () -> Void in
         let url = NSURL(string: user.avatarURL!)
         let data = NSData(contentsOfURL: url!)

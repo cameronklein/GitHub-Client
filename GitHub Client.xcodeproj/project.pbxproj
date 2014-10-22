@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7E27A3BA19F5B74500240B21 /* RepoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E27A3B919F5B74500240B21 /* RepoCell.swift */; };
 		7E7C148E19F743CD008E9C3B /* Scorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7C148D19F743CD008E9C3B /* Scorable.swift */; };
+		7E7C149119F813F5008E9C3B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7C149019F813F5008E9C3B /* ProfileViewController.swift */; };
 		7E95F4E519F5F93C008C690D /* octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E95F4E419F5F93C008C690D /* octicons.ttf */; };
 		7E98963519F70AE100990574 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E98963419F70AE100990574 /* User.swift */; };
 		7E98963919F713DF00990574 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E98963819F713DF00990574 /* UserCell.swift */; };
@@ -38,6 +39,7 @@
 		7E27A3B919F5B74500240B21 /* RepoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoCell.swift; sourceTree = "<group>"; };
 		7E7C148D19F743CD008E9C3B /* Scorable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scorable.swift; sourceTree = "<group>"; };
 		7E7C148F19F74E2A008E9C3B /* Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		7E7C149019F813F5008E9C3B /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		7E95F4E419F5F93C008C690D /* octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = octicons.ttf; sourceTree = "<group>"; };
 		7E98963419F70AE100990574 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7E98963819F713DF00990574 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserCell.swift; path = ../UserCell.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 		7EA4D69119F5E7D100EA3883 /* CONTROLLER */ = {
 			isa = PBXGroup;
 			children = (
+				7E7C149019F813F5008E9C3B /* ProfileViewController.swift */,
 				7EC3E85219F5A67200E137C9 /* RepoTableViewController.swift */,
 				7EC3E82D19F58E8A00E137C9 /* ViewController.swift */,
 				7EC3E84E19F5A23200E137C9 /* NetworkController.swift */,
@@ -280,6 +283,7 @@
 				7EC3E82E19F58E8A00E137C9 /* ViewController.swift in Sources */,
 				7E7C148E19F743CD008E9C3B /* Scorable.swift in Sources */,
 				7E98963519F70AE100990574 /* User.swift in Sources */,
+				7E7C149119F813F5008E9C3B /* ProfileViewController.swift in Sources */,
 				7E98963919F713DF00990574 /* UserCell.swift in Sources */,
 				7EC3E85119F5A4AB00E137C9 /* Repo.swift in Sources */,
 				7EC3E82919F58E8A00E137C9 /* AppDelegate.swift in Sources */,

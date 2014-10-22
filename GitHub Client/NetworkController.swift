@@ -93,6 +93,7 @@ class NetworkController{
     println(url?.description)
     let request = NSMutableURLRequest(URL: url!)
     let token = NSUserDefaults.standardUserDefaults().objectForKey("OAuth") as String
+    println(token)
     request.setValue("token " + token, forHTTPHeaderField: "Authorization")
     let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
       var errorDescription : String?
@@ -154,5 +155,43 @@ class NetworkController{
     })
     dataTask.resume()
   }
+  
+  func getCurrentUser(completionHandler : (errorDescription: String?, result: User?) -> (Void)) {
+    let session = NSURLSession.sharedSession()
+    
+    let url = NSURL(string: "https://api.github.com/user")
+    
+    let request = NSMutableURLRequest(URL: url!)
+    let token = NSUserDefaults.standardUserDefaults().objectForKey("OAuth") as String
+    request.setValue("token " + token, forHTTPHeaderField: "Authorization")
+    
+    let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
+      var errorDescription : String?
+      var currentUser : User?
+      if error != nil {
+        errorDescription = "Server request not sent. Something is wrong."
+      } else {
+        let response = response as NSHTTPURLResponse
+        switch response.statusCode {
+        case 200...299:
+          var error : NSError?
+          let result = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &error) as NSDictionary
+          currentUser = User(dictionary: result)
+        case 400...499:
+          errorDescription = "Something went wrong on our end."
+        case 500...599:
+          errorDescription = "Something is wrong with GitHub's servers."
+        default:
+          errorDescription = "Something is very, very wrong."
+        }
+      }
+      NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+        completionHandler(errorDescription: errorDescription, result: currentUser)
+      })
+    })
+    dataTask.resume()
+  }
+  
+  
 
 }

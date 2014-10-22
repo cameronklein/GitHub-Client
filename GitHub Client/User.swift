@@ -11,16 +11,23 @@ import Foundation
 
 class User : Scorable{
   
-  var id : Int!
-  var name : String!
-  var avatarURL : String!
-  var score : Double!
+  var id          : Int!
+  var login       : String!
+  var avatarURL   : String!
+  var score       : Double!
+  var name        : String?
+  var location    : String?
+  var bio         : String?
+  var publicRepos : Int?
+  var publicGists : Int?
+  
   
   init(dictionary: NSDictionary){
     id          = dictionary["id"]                as Int
-    name        = dictionary["login"]             as String
+    login        = dictionary["login"]            as String
     avatarURL   = dictionary["avatar_url"]        as String
-    score       = dictionary["score"]             as Double
+    score       = dictionary["score"]             as? Double
+    
 
   }
   
