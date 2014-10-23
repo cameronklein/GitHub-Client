@@ -25,6 +25,8 @@ class NetworkController{
   let githubTokenURL  = "https://github.com/login/oauth/access_token"
   
   var usersRunFlag    = false
+  var imageCache      = [String:UIImage]()
+  var imageQueue      = NSOperationQueue()
   
   func requestOAuthAccess() {
     let url = githubOAuthURL + clientID + "&" + redirectURL + "&" + scope
@@ -156,10 +158,91 @@ class NetworkController{
     dataTask.resume()
   }
   
-  func getCurrentUser(completionHandler : (errorDescription: String?, result: User?) -> (Void)) {
+  func fetchUserRepos(username : String? = nil, completionHandler : (errorDescription: String?, result: [Repo]?) -> (Void)) {
+    let session = NSURLSession.sharedSession()
+    var urlString = "https://api.github.com/user/repos"
+    if let login = username{
+      urlString = "https://api.github.com/users/\(login)/repos"
+    }
+    let url = NSURL(string: urlString)
+    let request = NSMutableURLRequest(URL: url!)
+    let token = NSUserDefaults.standardUserDefaults().objectForKey("OAuth") as String
+    request.setValue("token " + token, forHTTPHeaderField: "Authorization")
+    let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
+      var errorDescription : String?
+      var result : [Repo]?
+      if error != nil {
+        errorDescription = "Server request not sent. Something is wrong."
+      } else {
+        let response = response as NSHTTPURLResponse
+        switch response.statusCode {
+        case 200...299:
+          println("Got 200!")
+          result = Repo.parseJSONIntoRepos(data) as [Repo]?
+        case 400...499:
+          errorDescription = "Something went wrong on our end."
+        case 500...599:
+          errorDescription = "Something is wrong with GitHub's servers."
+        default:
+          errorDescription = "Something is very, very wrong."
+        }
+      }
+      NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+        completionHandler(errorDescription: errorDescription, result: result)
+      })
+    
+    })
+    dataTask.resume()
+  }
+  
+  func fetchUserGists(username : String? = nil, completionHandler : (errorDescription: String?, result: [Repo]?) -> (Void)) {
+    let session = NSURLSession.sharedSession()
+    var urlString = "https://api.github.com/user/gists"
+    if let login = username{
+      urlString = "https://api.github.com/users/\(login)/gists"
+    }
+    let url = NSURL(string: urlString)
+    let request = NSMutableURLRequest(URL: url!)
+    let token = NSUserDefaults.standardUserDefaults().objectForKey("OAuth") as String
+    request.setValue("token " + token, forHTTPHeaderField: "Authorization")
+    let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
+      var errorDescription : String?
+      var result : [Repo]?
+      if error != nil {
+        errorDescription = "Server request not sent. Something is wrong."
+      } else {
+        let response = response as NSHTTPURLResponse
+        switch response.statusCode {
+        case 200...299:
+          println("Got 200!")
+          result = Repo.parseJSONIntoRepos(data) as [Repo]?
+        case 400...499:
+          errorDescription = "Something went wrong on our end."
+        case 500...599:
+          errorDescription = "Something is wrong with GitHub's servers."
+        default:
+          errorDescription = "Something is very, very wrong."
+        }
+      }
+      NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+        completionHandler(errorDescription: errorDescription, result: result)
+      })
+      
+    })
+    dataTask.resume()
+  }
+  
+  func getUser(username: String? = nil, completionHandler : (errorDescription: String?, result: User?) -> (Void)) {
     let session = NSURLSession.sharedSession()
     
-    let url = NSURL(string: "https://api.github.com/user")
+    var urlString = "https://api.github.com/user"
+    
+    if let login = username {
+      urlString = "https://api.github.com/users/" + login
+    }
+    println(urlString)
+    
+    var url = NSURL(string: urlString)
     
     let request = NSMutableURLRequest(URL: url!)
     let token = NSUserDefaults.standardUserDefaults().objectForKey("OAuth") as String
@@ -190,6 +273,24 @@ class NetworkController{
       })
     })
     dataTask.resume()
+  }
+  
+  func fetchImageFromURL(url : String, completionHandler: (UIImage?) -> Void) {
+    imageQueue.addOperationWithBlock({ () -> Void in
+      var image : UIImage?
+      if let cachedImage = self.imageCache[url]{
+        image = cachedImage
+      } else {
+        let uri   = NSURL(string: url)
+        let data  = NSData(contentsOfURL: uri!)
+        image = UIImage(data: data!)
+        self.imageCache[url] = image!
+        }
+      NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+        completionHandler(image!)
+      })
+    })
+    
   }
   
   

@@ -30,7 +30,7 @@ class Repo : Scorable {
     stars       = dictionary["stargazers_count"]  as Int
     watchers    = dictionary["watchers_count"]    as Int
     forks       = dictionary["forks_count"]       as Int
-    score       = dictionary["score"]             as Double
+    score       = dictionary["score"]             as? Double
     
     let ownerDictionary = dictionary["owner"] as NSDictionary
     owner = ownerDictionary["login"] as String
@@ -45,18 +45,26 @@ class Repo : Scorable {
       if let repoArray = searchResultsDictionary["items"] as? NSArray {
                 for dictionary in repoArray {
           if let repoDict = dictionary as? NSDictionary {
+            println("Creating Repo")
             repos.append(Repo(dictionary: repoDict))
           }
         }
       }
       println("\(repos.count) repos created.")
       return repos
-    }
+    } else if let searchResultsArray = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &error) as? NSArray {
+        var repos = [Repo]()
+          for dictionary in searchResultsArray {
+            if let repoDict = dictionary as? NSDictionary {
+              println("Creating Repo")
+              repos.append(Repo(dictionary: repoDict))
+            }
+          }
+        println("\(repos.count) repos created.")
+        return repos
+      }
     return nil
-    
 
-    
-    
   }
   
 }

@@ -7,9 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E14239319F8580600140B6C /* EnlargeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E14239219F8580600140B6C /* EnlargeAnimation.swift */; };
 		7E27A3BA19F5B74500240B21 /* RepoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E27A3B919F5B74500240B21 /* RepoCell.swift */; };
 		7E7C148E19F743CD008E9C3B /* Scorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7C148D19F743CD008E9C3B /* Scorable.swift */; };
 		7E7C149119F813F5008E9C3B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7C149019F813F5008E9C3B /* ProfileViewController.swift */; };
+		7E7C149319F83CEA008E9C3B /* RepoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E7C149219F83CEA008E9C3B /* RepoCell.xib */; };
+		7E7C149519F84178008E9C3B /* UserCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E7C149419F84178008E9C3B /* UserCollectionCell.xib */; };
+		7E7C149719F84485008E9C3B /* UserCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7C149619F84485008E9C3B /* UserCollectionCell.swift */; };
+		7E7C149919F8475B008E9C3B /* UserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E7C149819F8475B008E9C3B /* UserCell.xib */; };
 		7E95F4E519F5F93C008C690D /* octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E95F4E419F5F93C008C690D /* octicons.ttf */; };
 		7E98963519F70AE100990574 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E98963419F70AE100990574 /* User.swift */; };
 		7E98963919F713DF00990574 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E98963819F713DF00990574 /* UserCell.swift */; };
@@ -22,7 +27,7 @@
 		7EC3E84219F58E8A00E137C9 /* GitHub_ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E84119F58E8A00E137C9 /* GitHub_ClientTests.swift */; };
 		7EC3E84F19F5A23200E137C9 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E84E19F5A23200E137C9 /* NetworkController.swift */; };
 		7EC3E85119F5A4AB00E137C9 /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E85019F5A4AB00E137C9 /* Repo.swift */; };
-		7EC3E85319F5A67200E137C9 /* RepoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E85219F5A67200E137C9 /* RepoTableViewController.swift */; };
+		7EC3E85319F5A67200E137C9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E85219F5A67200E137C9 /* SearchViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,10 +41,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7E14239219F8580600140B6C /* EnlargeAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnlargeAnimation.swift; sourceTree = "<group>"; };
 		7E27A3B919F5B74500240B21 /* RepoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoCell.swift; sourceTree = "<group>"; };
 		7E7C148D19F743CD008E9C3B /* Scorable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scorable.swift; sourceTree = "<group>"; };
 		7E7C148F19F74E2A008E9C3B /* Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		7E7C149019F813F5008E9C3B /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		7E7C149219F83CEA008E9C3B /* RepoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepoCell.xib; sourceTree = "<group>"; };
+		7E7C149419F84178008E9C3B /* UserCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCollectionCell.xib; sourceTree = "<group>"; };
+		7E7C149619F84485008E9C3B /* UserCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCollectionCell.swift; sourceTree = "<group>"; };
+		7E7C149819F8475B008E9C3B /* UserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCell.xib; sourceTree = "<group>"; };
 		7E95F4E419F5F93C008C690D /* octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = octicons.ttf; sourceTree = "<group>"; };
 		7E98963419F70AE100990574 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7E98963819F713DF00990574 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserCell.swift; path = ../UserCell.swift; sourceTree = "<group>"; };
@@ -56,7 +66,7 @@
 		7EC3E84119F58E8A00E137C9 /* GitHub_ClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHub_ClientTests.swift; sourceTree = "<group>"; };
 		7EC3E84E19F5A23200E137C9 /* NetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		7EC3E85019F5A4AB00E137C9 /* Repo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repo.swift; sourceTree = "<group>"; };
-		7EC3E85219F5A67200E137C9 /* RepoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoTableViewController.swift; sourceTree = "<group>"; };
+		7EC3E85219F5A67200E137C9 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +90,9 @@
 		7EA4D69119F5E7D100EA3883 /* CONTROLLER */ = {
 			isa = PBXGroup;
 			children = (
+				7EC3E85219F5A67200E137C9 /* SearchViewController.swift */,
 				7E7C149019F813F5008E9C3B /* ProfileViewController.swift */,
-				7EC3E85219F5A67200E137C9 /* RepoTableViewController.swift */,
+				7E14239219F8580600140B6C /* EnlargeAnimation.swift */,
 				7EC3E82D19F58E8A00E137C9 /* ViewController.swift */,
 				7EC3E84E19F5A23200E137C9 /* NetworkController.swift */,
 				7EC3E82819F58E8A00E137C9 /* AppDelegate.swift */,
@@ -102,7 +113,11 @@
 		7EA4D69319F5E7F100EA3883 /* VIEW */ = {
 			isa = PBXGroup;
 			children = (
+				7E7C149419F84178008E9C3B /* UserCollectionCell.xib */,
+				7E7C149619F84485008E9C3B /* UserCollectionCell.swift */,
+				7E7C149219F83CEA008E9C3B /* RepoCell.xib */,
 				7EC3E82F19F58E8A00E137C9 /* Main.storyboard */,
+				7E7C149819F8475B008E9C3B /* UserCell.xib */,
 				7E27A3B919F5B74500240B21 /* RepoCell.swift */,
 				7E98963819F713DF00990574 /* UserCell.swift */,
 			);
@@ -257,9 +272,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				7EC3E83119F58E8A00E137C9 /* Main.storyboard in Resources */,
+				7E7C149319F83CEA008E9C3B /* RepoCell.xib in Resources */,
 				7EC3E83619F58E8A00E137C9 /* LaunchScreen.xib in Resources */,
+				7E7C149519F84178008E9C3B /* UserCollectionCell.xib in Resources */,
 				7E95F4E519F5F93C008C690D /* octicons.ttf in Resources */,
 				7EC3E83319F58E8A00E137C9 /* Images.xcassets in Resources */,
+				7E7C149919F8475B008E9C3B /* UserCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,12 +295,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E14239319F8580600140B6C /* EnlargeAnimation.swift in Sources */,
 				7EC3E84F19F5A23200E137C9 /* NetworkController.swift in Sources */,
 				7E27A3BA19F5B74500240B21 /* RepoCell.swift in Sources */,
-				7EC3E85319F5A67200E137C9 /* RepoTableViewController.swift in Sources */,
+				7EC3E85319F5A67200E137C9 /* SearchViewController.swift in Sources */,
 				7EC3E82E19F58E8A00E137C9 /* ViewController.swift in Sources */,
 				7E7C148E19F743CD008E9C3B /* Scorable.swift in Sources */,
 				7E98963519F70AE100990574 /* User.swift in Sources */,
+				7E7C149719F84485008E9C3B /* UserCollectionCell.swift in Sources */,
 				7E7C149119F813F5008E9C3B /* ProfileViewController.swift in Sources */,
 				7E98963919F713DF00990574 /* UserCell.swift in Sources */,
 				7EC3E85119F5A4AB00E137C9 /* Repo.swift in Sources */,

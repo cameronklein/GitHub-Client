@@ -24,9 +24,13 @@ class User : Scorable{
   
   init(dictionary: NSDictionary){
     id          = dictionary["id"]                as Int
-    login        = dictionary["login"]            as String
+    login       = dictionary["login"]             as String
     avatarURL   = dictionary["avatar_url"]        as String
     score       = dictionary["score"]             as? Double
+    name        = dictionary["name"]              as? String
+    location    = dictionary["location"]          as? String
+    publicRepos = dictionary["public_repos"]      as? Int
+    publicGists = dictionary["public_gists"]      as? Int
     
 
   }
