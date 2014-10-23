@@ -161,8 +161,8 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     let vc = self.storyboard?.instantiateViewControllerWithIdentifier("PROFILE_VC") as ProfileViewController
     selectedCell = collectionView.cellForItemAtIndexPath(indexPath)
-    let selectedUser = backingArray![indexPath.row] as User
-    vc.wantedUserName = selectedUser.login
+    let selectedUser = backingArray![indexPath.row] as? User
+    vc.wantedUserName = selectedUser!.login
     self.navigationController?.pushViewController(vc, animated: true)
   }
   

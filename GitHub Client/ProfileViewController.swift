@@ -23,10 +23,12 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    tableView.registerNib(UINib(nibName: "RepoCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "REPO_CELL")
+    userName.text = nil
+    bioLabel.text = nil
     
     networkController.getUser(username: wantedUserName, completionHandler: { (errorDescription, result) -> (Void) in
       println(self.wantedUserName)
-      
       if errorDescription == nil {
         self.doSearch()
         self.currentUser = result!
