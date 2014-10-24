@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 
 class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
@@ -26,6 +27,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     tableView.registerNib(UINib(nibName: "RepoCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "REPO_CELL")
     userName.text = nil
     bioLabel.text = nil
+    
     
     networkController.getUser(username: wantedUserName, completionHandler: { (errorDescription, result) -> (Void) in
       println(self.wantedUserName)
@@ -79,6 +81,22 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
   
   func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     return 200
+  }
+  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    let object : AnyObject = backingArray![indexPath.row]
+    if let repo = object as? Repo {
+      let frame = self.splitViewController!
+      let vc = UIViewController()
+      let webview = WKWebView()
+      let url = NSURL(string: repo.url)
+      webview.loadRequest(NSURLRequest(URL: url!))
+      vc.navigationItem.title = "Web View"
+      vc.view.addSubview(webview)
+      self.navigationController?.pushViewController(vc, animated: true)
+      webview.bounds = vc.view.frame
+      webview.frame  = vc.view.frame
+    }
   }
   
   func doSearch() {

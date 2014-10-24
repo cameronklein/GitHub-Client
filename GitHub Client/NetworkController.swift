@@ -214,7 +214,6 @@ class NetworkController{
         let response = response as NSHTTPURLResponse
         switch response.statusCode {
         case 200...299:
-          println("Got 200!")
           result = Repo.parseJSONIntoRepos(data) as [Repo]?
         case 400...499:
           errorDescription = "Something went wrong on our end."
@@ -274,6 +273,51 @@ class NetworkController{
     })
     dataTask.resume()
   }
+  
+  func createRepo(repoDictionary : NSDictionary, completionHandler : (errorDescription: String?, result: Repo?) -> (Void)) {
+    let session = NSURLSession.sharedSession()
+    var urlString = "https://api.github.com/user/repos"
+    let url = NSURL(string: urlString)
+    let request = NSMutableURLRequest(URL: url!)
+    let token = NSUserDefaults.standardUserDefaults().objectForKey("OAuth") as String
+    request.setValue("token " + token, forHTTPHeaderField: "Authorization")
+    request.HTTPMethod = "POST"
+    
+    var error : NSError?
+    let json = NSJSONSerialization.dataWithJSONObject(repoDictionary, options: nil, error: &error)
+    
+    //var postData = urlQuery.dataUsingEncoding(NSASCIIStringEncoding, allowLossyConversion: true)
+    request.HTTPBody = json
+    
+    
+    let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
+      var errorDescription : String?
+      var result : [Repo]?
+      if error != nil {
+        errorDescription = "Server request not sent. Something is wrong."
+      } else {
+        let response = response as NSHTTPURLResponse
+        switch response.statusCode {
+       case 200...299:
+          println("Got 200!")
+          result = Repo.parseJSONIntoRepos(data) as [Repo]?
+        case 400...499:
+          errorDescription = "Something went wrong on our end."
+        case 500...599:
+          errorDescription = "Something is wrong with GitHub's servers."
+        default:
+          errorDescription = "Something is very, very wrong."
+        }
+      }
+      NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+        completionHandler(errorDescription: errorDescription, result: result)
+      })
+      
+    })
+    dataTask.resume()
+  }
+  
+  
   
   func fetchImageFromURL(url : String, completionHandler: (UIImage?) -> Void) {
     imageQueue.addOperationWithBlock({ () -> Void in

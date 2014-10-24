@@ -18,6 +18,7 @@
 		7E95F4E519F5F93C008C690D /* octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E95F4E419F5F93C008C690D /* octicons.ttf */; };
 		7E98963519F70AE100990574 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E98963419F70AE100990574 /* User.swift */; };
 		7E98963919F713DF00990574 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E98963819F713DF00990574 /* UserCell.swift */; };
+		7EC06D0619FB03B9000D55D8 /* CreateRepoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC06D0519FB03B9000D55D8 /* CreateRepoViewController.swift */; };
 		7EC3E82919F58E8A00E137C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E82819F58E8A00E137C9 /* AppDelegate.swift */; };
 		7EC3E82C19F58E8A00E137C9 /* GitHub_Client.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E82A19F58E8A00E137C9 /* GitHub_Client.xcdatamodeld */; };
 		7EC3E82E19F58E8A00E137C9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E82D19F58E8A00E137C9 /* ViewController.swift */; };
@@ -28,6 +29,7 @@
 		7EC3E84F19F5A23200E137C9 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E84E19F5A23200E137C9 /* NetworkController.swift */; };
 		7EC3E85119F5A4AB00E137C9 /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E85019F5A4AB00E137C9 /* Repo.swift */; };
 		7EC3E85319F5A67200E137C9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3E85219F5A67200E137C9 /* SearchViewController.swift */; };
+		7ED9634919F9A05E009D436C /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED9634819F9A05E009D436C /* StringExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,7 @@
 		7E95F4E419F5F93C008C690D /* octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = octicons.ttf; sourceTree = "<group>"; };
 		7E98963419F70AE100990574 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7E98963819F713DF00990574 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserCell.swift; path = ../UserCell.swift; sourceTree = "<group>"; };
+		7EC06D0519FB03B9000D55D8 /* CreateRepoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateRepoViewController.swift; sourceTree = "<group>"; };
 		7EC3E82319F58E8A00E137C9 /* GitHub Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GitHub Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EC3E82719F58E8A00E137C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EC3E82819F58E8A00E137C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +70,7 @@
 		7EC3E84E19F5A23200E137C9 /* NetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		7EC3E85019F5A4AB00E137C9 /* Repo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repo.swift; sourceTree = "<group>"; };
 		7EC3E85219F5A67200E137C9 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		7ED9634819F9A05E009D436C /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,7 @@
 		7EA4D69119F5E7D100EA3883 /* CONTROLLER */ = {
 			isa = PBXGroup;
 			children = (
+				7EC06D0519FB03B9000D55D8 /* CreateRepoViewController.swift */,
 				7EC3E85219F5A67200E137C9 /* SearchViewController.swift */,
 				7E7C149019F813F5008E9C3B /* ProfileViewController.swift */,
 				7E14239219F8580600140B6C /* EnlargeAnimation.swift */,
@@ -103,6 +108,7 @@
 		7EA4D69219F5E7E700EA3883 /* MODEL */ = {
 			isa = PBXGroup;
 			children = (
+				7ED9634819F9A05E009D436C /* StringExtension.swift */,
 				7EC3E85019F5A4AB00E137C9 /* Repo.swift */,
 				7E98963419F70AE100990574 /* User.swift */,
 				7E7C148D19F743CD008E9C3B /* Scorable.swift */,
@@ -300,9 +306,11 @@
 				7E27A3BA19F5B74500240B21 /* RepoCell.swift in Sources */,
 				7EC3E85319F5A67200E137C9 /* SearchViewController.swift in Sources */,
 				7EC3E82E19F58E8A00E137C9 /* ViewController.swift in Sources */,
+				7EC06D0619FB03B9000D55D8 /* CreateRepoViewController.swift in Sources */,
 				7E7C148E19F743CD008E9C3B /* Scorable.swift in Sources */,
 				7E98963519F70AE100990574 /* User.swift in Sources */,
 				7E7C149719F84485008E9C3B /* UserCollectionCell.swift in Sources */,
+				7ED9634919F9A05E009D436C /* StringExtension.swift in Sources */,
 				7E7C149119F813F5008E9C3B /* ProfileViewController.swift in Sources */,
 				7E98963919F713DF00990574 /* UserCell.swift in Sources */,
 				7EC3E85119F5A4AB00E137C9 /* Repo.swift in Sources */,

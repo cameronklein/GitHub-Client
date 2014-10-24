@@ -20,12 +20,14 @@ class User : Scorable{
   var bio         : String?
   var publicRepos : Int?
   var publicGists : Int?
+  var url         : String!
   
   
   init(dictionary: NSDictionary){
     id          = dictionary["id"]                as Int
     login       = dictionary["login"]             as String
     avatarURL   = dictionary["avatar_url"]        as String
+    url         = dictionary["html_url"]          as String
     score       = dictionary["score"]             as? Double
     name        = dictionary["name"]              as? String
     location    = dictionary["location"]          as? String

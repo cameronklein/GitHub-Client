@@ -7,53 +7,26 @@
 //
 
 import UIKit
+import WebKit
 
 class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UINavigationControllerDelegate {
   
-  var networkController : NetworkController!
+  var networkController = NetworkController.sharedInstance
   var backingArray : [AnyObject]?
   var currentScope: Scope = .Repos
-  var refreshController : UIRefreshControl!
   var imageQueue = NSOperationQueue()
   var selectedCell : UICollectionViewCell?
   
   @IBOutlet var tableView: UITableView!
   @IBOutlet weak var searchBar: UISearchBar!
   var collectionView : UICollectionView!
-  
+
+  // MARK: -Lifecycle Methods
   override func viewDidLoad() {
     super.viewDidLoad()
     setUpTableView()
-    
+    setUPCollectionView()
     self.navigationController?.delegate = self
-    
-    let layout = UICollectionViewFlowLayout()
-    let screenWidth = self.view.frame.width
-    layout.minimumLineSpacing = screenWidth * 0.03
-    layout.minimumInteritemSpacing = screenWidth * 0.03
-    layout.sectionInset.left = screenWidth * 0.03
-    layout.sectionInset.right = screenWidth * 0.03
-    layout.sectionInset.top = screenWidth * 0.03
-    layout.itemSize = CGSize(width: screenWidth * 0.29, height: screenWidth * 0.34)
-    collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 50, height: 50), collectionViewLayout: layout)
-    collectionView.registerNib(UINib(nibName: "UserCollectionCell", bundle: NSBundle.mainBundle()), forCellWithReuseIdentifier: "USER_COLLECTION_CELL")
-    collectionView.dataSource = self
-    collectionView.delegate = self
-    
-    
-    networkController = NetworkController.sharedInstance
-    
-    
-  }
-  
-  //MARK: - TableViewDataSource
-  
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if backingArray != nil {
-      return backingArray!.count
-    } else {
-      return 0
-    }
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -68,14 +41,34 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     self.changeTitleTo("Search")
   }
   
-  
-  
-   override func viewDidLayoutSubviews() {
+  override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     collectionView.frame = self.tableView.frame
+    
+    let layout      = collectionView.collectionViewLayout as UICollectionViewFlowLayout
+    let screenWidth = self.collectionView.frame.width
+    layout.minimumLineSpacing = screenWidth * 0.03
+    layout.minimumInteritemSpacing = screenWidth * 0.03
+    layout.sectionInset.left = screenWidth * 0.03
+    layout.sectionInset.right = screenWidth * 0.03
+    layout.sectionInset.top = screenWidth * 0.03
+    layout.itemSize = CGSize(width: screenWidth * 0.29, height: screenWidth * 0.34)
+    
   }
   
-   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+
+  
+  //MARK: - TableViewDataSource
+  
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    if backingArray != nil {
+      return backingArray!.count
+    } else {
+      return 0
+    }
+  }
+  
+  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let object: AnyObject = backingArray![indexPath.row]
     
     if let repo = object as? Repo {
@@ -108,12 +101,51 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     return UITableViewCell()
   }
   
-  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    let object : AnyObject = backingArray![indexPath.row]
+    if let repo = object as? Repo {
+      let frame = self.splitViewController!
+      let vc = UIViewController()
+      let webview = WKWebView()
+      let url = NSURL(string: repo.url)
+      webview.loadRequest(NSURLRequest(URL: url!))
+      vc.navigationItem.title = "Web View"
+      vc.view.addSubview(webview)
+      self.splitViewController?.showDetailViewController(vc, sender: self)
+      webview.bounds = vc.view.frame
+      webview.frame  = vc.view.frame
+    }
+    if let user = object as? User {
+      let vc = self.storyboard?.instantiateViewControllerWithIdentifier("PROFILE_VC") as ProfileViewController
+      
+      let selectedUser = backingArray![indexPath.row] as? User
+      vc.wantedUserName = selectedUser!.login
+      self.splitViewController?.showDetailViewController(vc, sender: self)
+    }
+  }
+
   func setUpTableView() {
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.estimatedRowHeight = 150.0
     tableView.registerNib(UINib(nibName: "RepoCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "REPO_CELL")
     tableView.registerNib(UINib(nibName: "UserCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "USER_CELL")
+  }
+  
+  func setUPCollectionView() {
+    
+    let layout = UICollectionViewFlowLayout()
+    let screenWidth = self.tableView.frame.width
+    layout.minimumLineSpacing = screenWidth * 0.03
+    layout.minimumInteritemSpacing = screenWidth * 0.03
+    layout.sectionInset.left = screenWidth * 0.03
+    layout.sectionInset.right = screenWidth * 0.03
+    layout.sectionInset.top = screenWidth * 0.03
+    layout.itemSize = CGSize(width: screenWidth * 0.29, height: screenWidth * 0.34)
+    collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 50, height: 50), collectionViewLayout: layout)
+    collectionView.registerNib(UINib(nibName: "UserCollectionCell", bundle: NSBundle.mainBundle()), forCellWithReuseIdentifier: "USER_COLLECTION_CELL")
+    collectionView.dataSource = self
+    collectionView.delegate = self
+    
   }
   
   func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
@@ -133,6 +165,21 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     doSearch()
     searchBar.resignFirstResponder()
   }
+  
+  func searchBar(searchBar: UISearchBar, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    let tint = self.searchBar.barTintColor
+    if text.validate() == true {
+      println("Text Validated!")
+      return true
+    } else {
+      self.searchBar.barTintColor = UIColor.redColor()
+      UIView.animateWithDuration(0.1, delay: 0.0, options: nil, animations: { () -> Void in
+          self.searchBar.barTintColor = tint
+        }, completion: nil)
+      return false
+      }
+    
+    }
   
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if backingArray != nil {
@@ -163,7 +210,8 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     selectedCell = collectionView.cellForItemAtIndexPath(indexPath)
     let selectedUser = backingArray![indexPath.row] as? User
     vc.wantedUserName = selectedUser!.login
-    self.navigationController?.pushViewController(vc, animated: true)
+    self.splitViewController?.showDetailViewController(vc, sender: self)
+    //self.navigationController?.pushViewController(vc, animated: true)
   }
   
   
