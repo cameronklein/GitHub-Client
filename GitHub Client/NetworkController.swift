@@ -292,7 +292,7 @@ class NetworkController{
     
     let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
       var errorDescription : String?
-      var result : [Repo]?
+      var result : Repo?
       if error != nil {
         errorDescription = "Server request not sent. Something is wrong."
       } else {
@@ -300,7 +300,6 @@ class NetworkController{
         switch response.statusCode {
        case 200...299:
           println("Got 200!")
-          result = Repo.parseJSONIntoRepos(data) as [Repo]?
         case 400...499:
           errorDescription = "Something went wrong on our end."
         case 500...599:
