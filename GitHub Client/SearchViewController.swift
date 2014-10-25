@@ -52,11 +52,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     layout.sectionInset.left = screenWidth * 0.03
     layout.sectionInset.right = screenWidth * 0.03
     layout.sectionInset.top = screenWidth * 0.03
-    layout.itemSize = CGSize(width: screenWidth * 0.29, height: screenWidth * 0.34)
+    layout.itemSize = CGSize(width: screenWidth * 0.29, height: screenWidth * 0.29 + 20)
     
   }
-  
-
   
   //MARK: - TableViewDataSource
   

@@ -15,6 +15,10 @@
 		7E7C149519F84178008E9C3B /* UserCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E7C149419F84178008E9C3B /* UserCollectionCell.xib */; };
 		7E7C149719F84485008E9C3B /* UserCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7C149619F84485008E9C3B /* UserCollectionCell.swift */; };
 		7E7C149919F8475B008E9C3B /* UserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E7C149819F8475B008E9C3B /* UserCell.xib */; };
+		7E7D3F9119FC16B800A0F5CF /* CurrentUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7D3F9019FC16B800A0F5CF /* CurrentUserViewController.swift */; };
+		7E7D3F9319FC185F00A0F5CF /* CreateRepo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E7D3F9219FC185F00A0F5CF /* CreateRepo.xib */; };
+		7E7D3F9519FC4EA800A0F5CF /* space.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7E7D3F9419FC4EA800A0F5CF /* space.jpg */; };
+		7E7D3F9719FC523800A0F5CF /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7D3F9619FC523800A0F5CF /* SplashViewController.swift */; };
 		7E95F4E519F5F93C008C690D /* octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E95F4E419F5F93C008C690D /* octicons.ttf */; };
 		7E98963519F70AE100990574 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E98963419F70AE100990574 /* User.swift */; };
 		7E98963919F713DF00990574 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E98963819F713DF00990574 /* UserCell.swift */; };
@@ -52,6 +56,10 @@
 		7E7C149419F84178008E9C3B /* UserCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCollectionCell.xib; sourceTree = "<group>"; };
 		7E7C149619F84485008E9C3B /* UserCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCollectionCell.swift; sourceTree = "<group>"; };
 		7E7C149819F8475B008E9C3B /* UserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCell.xib; sourceTree = "<group>"; };
+		7E7D3F9019FC16B800A0F5CF /* CurrentUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrentUserViewController.swift; path = ../CurrentUserViewController.swift; sourceTree = "<group>"; };
+		7E7D3F9219FC185F00A0F5CF /* CreateRepo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateRepo.xib; sourceTree = "<group>"; };
+		7E7D3F9419FC4EA800A0F5CF /* space.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = space.jpg; sourceTree = "<group>"; };
+		7E7D3F9619FC523800A0F5CF /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		7E95F4E419F5F93C008C690D /* octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = octicons.ttf; sourceTree = "<group>"; };
 		7E98963419F70AE100990574 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7E98963819F713DF00990574 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserCell.swift; path = ../UserCell.swift; sourceTree = "<group>"; };
@@ -100,6 +108,8 @@
 				7E14239219F8580600140B6C /* EnlargeAnimation.swift */,
 				7EC3E82D19F58E8A00E137C9 /* ViewController.swift */,
 				7EC3E84E19F5A23200E137C9 /* NetworkController.swift */,
+				7E7D3F9019FC16B800A0F5CF /* CurrentUserViewController.swift */,
+				7E7D3F9619FC523800A0F5CF /* SplashViewController.swift */,
 				7EC3E82819F58E8A00E137C9 /* AppDelegate.swift */,
 			);
 			name = CONTROLLER;
@@ -119,11 +129,12 @@
 		7EA4D69319F5E7F100EA3883 /* VIEW */ = {
 			isa = PBXGroup;
 			children = (
-				7E7C149419F84178008E9C3B /* UserCollectionCell.xib */,
-				7E7C149619F84485008E9C3B /* UserCollectionCell.swift */,
-				7E7C149219F83CEA008E9C3B /* RepoCell.xib */,
 				7EC3E82F19F58E8A00E137C9 /* Main.storyboard */,
+				7E7D3F9219FC185F00A0F5CF /* CreateRepo.xib */,
+				7E7C149419F84178008E9C3B /* UserCollectionCell.xib */,
+				7E7C149219F83CEA008E9C3B /* RepoCell.xib */,
 				7E7C149819F8475B008E9C3B /* UserCell.xib */,
+				7E7C149619F84485008E9C3B /* UserCollectionCell.swift */,
 				7E27A3B919F5B74500240B21 /* RepoCell.swift */,
 				7E98963819F713DF00990574 /* UserCell.swift */,
 			);
@@ -166,6 +177,7 @@
 		7EC3E82619F58E8A00E137C9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7E7D3F9419FC4EA800A0F5CF /* space.jpg */,
 				7EC3E84B19F58E9F00E137C9 /* Fonts */,
 				7EC3E82719F58E8A00E137C9 /* Info.plist */,
 			);
@@ -278,6 +290,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7EC3E83119F58E8A00E137C9 /* Main.storyboard in Resources */,
+				7E7D3F9519FC4EA800A0F5CF /* space.jpg in Resources */,
+				7E7D3F9319FC185F00A0F5CF /* CreateRepo.xib in Resources */,
 				7E7C149319F83CEA008E9C3B /* RepoCell.xib in Resources */,
 				7EC3E83619F58E8A00E137C9 /* LaunchScreen.xib in Resources */,
 				7E7C149519F84178008E9C3B /* UserCollectionCell.xib in Resources */,
@@ -304,6 +318,7 @@
 				7E14239319F8580600140B6C /* EnlargeAnimation.swift in Sources */,
 				7EC3E84F19F5A23200E137C9 /* NetworkController.swift in Sources */,
 				7E27A3BA19F5B74500240B21 /* RepoCell.swift in Sources */,
+				7E7D3F9719FC523800A0F5CF /* SplashViewController.swift in Sources */,
 				7EC3E85319F5A67200E137C9 /* SearchViewController.swift in Sources */,
 				7EC3E82E19F58E8A00E137C9 /* ViewController.swift in Sources */,
 				7EC06D0619FB03B9000D55D8 /* CreateRepoViewController.swift in Sources */,
@@ -312,6 +327,7 @@
 				7E7C149719F84485008E9C3B /* UserCollectionCell.swift in Sources */,
 				7ED9634919F9A05E009D436C /* StringExtension.swift in Sources */,
 				7E7C149119F813F5008E9C3B /* ProfileViewController.swift in Sources */,
+				7E7D3F9119FC16B800A0F5CF /* CurrentUserViewController.swift in Sources */,
 				7E98963919F713DF00990574 /* UserCell.swift in Sources */,
 				7EC3E85119F5A4AB00E137C9 /* Repo.swift in Sources */,
 				7EC3E82919F58E8A00E137C9 /* AppDelegate.swift in Sources */,

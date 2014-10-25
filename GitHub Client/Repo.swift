@@ -45,10 +45,11 @@ class Repo : Scorable {
       if let repoArray = searchResultsDictionary["items"] as? NSArray {
                 for dictionary in repoArray {
           if let repoDict = dictionary as? NSDictionary {
-            println("Creating Repo")
             repos.append(Repo(dictionary: repoDict))
           }
         }
+      } else {
+      repos.append(Repo(dictionary: searchResultsDictionary))
       }
       println("\(repos.count) repos created.")
       return repos
@@ -56,7 +57,6 @@ class Repo : Scorable {
         var repos = [Repo]()
           for dictionary in searchResultsArray {
             if let repoDict = dictionary as? NSDictionary {
-              println("Creating Repo")
               repos.append(Repo(dictionary: repoDict))
             }
           }

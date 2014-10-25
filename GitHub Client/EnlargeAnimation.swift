@@ -63,6 +63,7 @@ class EnlargeAnimation : NSObject, UIViewControllerAnimatedTransitioning {
     self.animator?.addBehavior(self.collision)
     self.animator?.addBehavior(self.itemBehavior)
     
+    //Helper method from http://stackoverflow.com/users/341994/matt
     func delay(delay:Double, closure:()->()) {
       dispatch_after(
         dispatch_time(
@@ -71,6 +72,8 @@ class EnlargeAnimation : NSObject, UIViewControllerAnimatedTransitioning {
         ),
         dispatch_get_main_queue(), closure)
     }
+    //End helper method
+    
     var maxTime : Double = 0.0
     for item in items {
       let time = Double(arc4random_uniform(RANDOM_MAX_NANOSECONDS))/400.0

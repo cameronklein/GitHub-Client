@@ -15,16 +15,9 @@ class SplitContainerViewController: UIViewController, UISplitViewControllerDeleg
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    
     let childVC = self.childViewControllers.first as UISplitViewController
     childVC.delegate = self
-    
-    dispatch_after(1, dispatch_get_main_queue(), {
-      if NSUserDefaults.standardUserDefaults().objectForKey("OAuth") == nil {
-       self.networkController.requestOAuthAccess()
-      }
-      
-    })
+  
   }
   
   func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController!, ontoPrimaryViewController primaryViewController: UIViewController!) -> Bool {

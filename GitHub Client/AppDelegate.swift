@@ -18,7 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    // Override point for customization after application launch.
+    
+    if let token = NSUserDefaults.standardUserDefaults().objectForKey("OAuth") as? String {
+      let newRoot = SplitContainerViewController()
+      self.window?.rootViewController = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier("TAB_BAR") as UITabBarController
+    }
+    
     return true
   }
   

@@ -285,11 +285,7 @@ class NetworkController{
     
     var error : NSError?
     let json = NSJSONSerialization.dataWithJSONObject(repoDictionary, options: nil, error: &error)
-    
-    //var postData = urlQuery.dataUsingEncoding(NSASCIIStringEncoding, allowLossyConversion: true)
     request.HTTPBody = json
-    
-    
     let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
       var errorDescription : String?
       var result : Repo?
@@ -300,6 +296,7 @@ class NetworkController{
         switch response.statusCode {
        case 200...299:
           println("Got 200!")
+          result = Repo.parseJSONIntoRepos(data)!.first
         case 400...499:
           errorDescription = "Something went wrong on our end."
         case 500...599:

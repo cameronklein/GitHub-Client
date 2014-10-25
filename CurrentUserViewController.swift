@@ -9,28 +9,31 @@
 import UIKit
 import WebKit
 
-class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class CurrentUserViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
   @IBOutlet weak var avatarImage: UIImageView!
   @IBOutlet weak var userName: UILabel!
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var bioLabel: UILabel!
+  @IBOutlet weak var segmentBar: UISegmentedControl!
+  @IBOutlet weak var editButton: UIButton!
   
   var currentUser : User?
   var networkController = NetworkController.sharedInstance
   var imageQueue = NSOperationQueue()
   var backingArray : [AnyObject]?
-  var wantedUserName : String?
-
+  var currentState : State = .Viewing
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     tableView.registerNib(UINib(nibName: "RepoCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "REPO_CELL")
     userName.text = nil
     bioLabel.text = nil
     
+    segmentBar.addTarget(self, action: "segmentBarChanged:", forControlEvents: UIControlEvents.ValueChanged)
     
-    networkController.getUser(username: wantedUserName, completionHandler: { (errorDescription, result) -> (Void) in
-      println(self.wantedUserName)
+    
+    networkController.getUser(username: nil, completionHandler: { (errorDescription, result) -> (Void) in
       if errorDescription == nil {
         self.doSearch()
         self.currentUser = result!
@@ -47,13 +50,13 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
       }
     })
   }
-
+  
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if backingArray != nil{
       println(backingArray!.count)
       return backingArray!.count
     } else {
-    return 0
+      return 0
     }
   }
   
@@ -99,7 +102,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
   }
   
   func doSearch() {
-    networkController.fetchUserRepos(username: wantedUserName, completionHandler: { (errorDescription, result) -> (Void) in
+    networkController.fetchUserRepos(username: nil, completionHandler: { (errorDescription, result) -> (Void) in
       if errorDescription == nil {
         self.backingArray = result
         self.tableView.reloadData()
@@ -109,8 +112,56 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         alert.addAction(ok)
         self.presentViewController(alert, animated: true, completion: nil)
       }
-      
-    
     })
   }
+  
+  func segmentBarChanged(sender: UISegmentedControl){
+    println("Segment Bar Changed!")
+    if segmentBar.selectedSegmentIndex == 1 {
+      let frame = UIView(frame: self.tableView.frame)
+      let childVC = self.storyboard?.instantiateViewControllerWithIdentifier("CREATE") as CreateRepoViewController
+      self.addChildViewController(childVC)
+      childVC.view.frame = self.tableView.frame
+      self.view.addSubview(childVC.view)
+      childVC.view.alpha = 0.0
+      UIView.animateWithDuration(0.2, animations: { () -> Void in
+        childVC.view.alpha = 1.0
+      })
+      
+    } else {
+      let childVC = self.childViewControllers.first as CreateRepoViewController
+      UIView.animateWithDuration(0.2, animations: { () -> Void in
+        childVC.view.alpha = 0.0
+      }, completion: { (success) -> Void in
+        childVC.view.removeFromSuperview()
+        childVC.removeFromParentViewController()
+      })
+    }
+  }
+  
+  func repoAdded(repo: Repo){
+    networkController.fetchUserRepos(username: nil) { (errorDescription, result) -> (Void) in
+      self.backingArray = result
+      self.tableView.reloadData()
+    }
+    
+  }
+  @IBAction func editProfile(sender: AnyObject) {
+    if currentState == .Viewing {
+      //editButton.titleForState(<#state: UIControlState#>) = "\u{F058} Done"
+      
+      userName.textColor = UIColor.orangeColor()
+      bioLabel.textColor = UIColor.orangeColor()
+    } else {
+      
+      
+    }
+    
+    
+  }
+
+}
+
+enum State {
+  case Viewing, Editing
 }
