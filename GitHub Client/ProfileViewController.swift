@@ -92,7 +92,11 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
       webview.loadRequest(NSURLRequest(URL: url!))
       vc.navigationItem.title = "Web View"
       vc.view.addSubview(webview)
-      self.navigationController?.pushViewController(vc, animated: true)
+      if let nav = self.navigationController {
+        nav.pushViewController(vc, animated: true)
+      } else {
+        self.splitViewController?.showDetailViewController(vc, sender: self)
+      }
       webview.bounds = vc.view.frame
       webview.frame  = vc.view.frame
     }
