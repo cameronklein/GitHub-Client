@@ -33,7 +33,7 @@ class NetworkController{
     UIApplication.sharedApplication().openURL(NSURL(string: url)!)
   }
   
-  func handleOAuthURL(callbackURL: NSURL) {
+  func handleOAuthURL(callbackURL: NSURL, completionHandler : (errorDescription: String?) -> (Void)) {
     let query = callbackURL.query
     let components = query?.componentsSeparatedByString("code=")
     let code = components?.last
@@ -51,6 +51,7 @@ class NetworkController{
     request.HTTPBody = postData
     
     let dataTask = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
+      var errorDescription : String? = nil
       if error != nil {
         println(error.description)
       } else {
@@ -64,13 +65,17 @@ class NetworkController{
           println(token!)
           NSUserDefaults.standardUserDefaults().setObject(NSString(string: token!), forKey: "OAuth")
           NSUserDefaults.standardUserDefaults().synchronize()
+          
         case 400...499:
-          println("Something went wrong on our end.")
+          errorDescription = "Something went wrong on our end."
         case 500...599:
-          println("Something is wrong with GitHub's servers.")
+          errorDescription = "Something is wrong with GitHub's servers"
         default:
-          println("Something is very, very wrong.")
+          errorDescription = "Something is very, very wrong."
         }
+        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+          completionHandler(errorDescription: errorDescription)
+        })
       }
       
     })
@@ -313,7 +318,45 @@ class NetworkController{
     dataTask.resume()
   }
   
-  
+  func updateUserName(name: String, andLocation location: String) {
+    let session = NSURLSession.sharedSession()
+    var urlString = "https://api.github.com/user"
+    let url = NSURL(string: urlString)
+    let request = NSMutableURLRequest(URL: url!)
+    let token = NSUserDefaults.standardUserDefaults().objectForKey("OAuth") as String
+    request.setValue("token " + token, forHTTPHeaderField: "Authorization")
+    request.HTTPMethod = "PATCH"
+    
+    var error : NSError?
+    let dictionary = ["name":name,"location":location]
+    
+    let json = NSJSONSerialization.dataWithJSONObject(dictionary, options: nil, error: &error)
+    request.HTTPBody = json
+    let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
+      var errorDescription : String?
+      var result : Repo?
+      if error != nil {
+        errorDescription = "Server request not sent. Something is wrong."
+      } else {
+        let response = response as NSHTTPURLResponse
+        switch response.statusCode {
+        case 200...299:
+          println("Got 200!")
+        case 400...499:
+          errorDescription = "Something went wrong on our end."
+        case 500...599:
+          errorDescription = "Something is wrong with GitHub's servers."
+        default:
+          errorDescription = "Something is very, very wrong."
+        }
+      }
+//      NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+//        completionHandler(errorDescription: errorDescription, result: result)
+//      })
+//      
+    })
+    dataTask.resume()
+  }
   
   func fetchImageFromURL(url : String, completionHandler: (UIImage?) -> Void) {
     imageQueue.addOperationWithBlock({ () -> Void in

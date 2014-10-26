@@ -18,9 +18,21 @@ class SplashViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-
+  
+  func errorReceived(error: String) {
+    let alert = UIAlertController(title: "OOPS!", message: error, preferredStyle: UIAlertControllerStyle.Alert)
+    let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
+    alert.addAction(ok)
+    self.presentViewController(alert, animated: true, completion: nil)
+  }
+  
+  override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+    println("Screen Pressed!")
+    networkController.requestOAuthAccess()
+  }
+  
   @IBAction func signInPressed(sender: AnyObject) {
+    println("Sign In Button Pressed!")
     networkController.requestOAuthAccess()
   }
 }

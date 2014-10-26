@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
     if let token = NSUserDefaults.standardUserDefaults().objectForKey("OAuth") as? String {
-      let newRoot = SplitContainerViewController()
       self.window?.rootViewController = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier("TAB_BAR") as UITabBarController
     }
     
@@ -28,7 +27,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   func application(application: UIApplication, openURL url: NSURL, sourceApplication: String, annotation: AnyObject?) -> Bool {
-    networkController.handleOAuthURL(url)
+    networkController.handleOAuthURL(url, completionHandler: { (errorDescription) -> (Void) in
+      if errorDescription == nil {
+        println("Trying to push new one")
+        self.window?.rootViewController = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier("TAB_BAR") as UITabBarController
+      } else {
+        let root = self.window?.rootViewController as SplashViewController
+        root.errorReceived(errorDescription!)
+      }
+    })
     return true
   }
 

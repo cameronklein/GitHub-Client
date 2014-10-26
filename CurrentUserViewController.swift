@@ -22,7 +22,6 @@ class CurrentUserViewController: UIViewController, UITableViewDataSource, UITabl
   var networkController = NetworkController.sharedInstance
   var imageQueue = NSOperationQueue()
   var backingArray : [AnyObject]?
-  var currentState : State = .Viewing
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -147,21 +146,48 @@ class CurrentUserViewController: UIViewController, UITableViewDataSource, UITabl
     
   }
   @IBAction func editProfile(sender: AnyObject) {
-    if currentState == .Viewing {
-      //editButton.titleForState(<#state: UIControlState#>) = "\u{F058} Done"
-      
-      userName.textColor = UIColor.orangeColor()
-      bioLabel.textColor = UIColor.orangeColor()
-    } else {
-      
+    let alert = UIAlertController(title: "Change user info?", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+    let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (action) -> Void in
+      let nameField = alert.textFields!.first as UITextField
+      let locationField = alert.textFields!.last as UITextField
+      let newName = nameField.text
+      let newLocation = locationField.text
+      let alert = UIAlertController(title: "Confirm", message: "Update name to \"\(newName)\" and location to \"\(newLocation)\"", preferredStyle: UIAlertControllerStyle.Alert)
+      let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+        self.networkController.updateUserName(newName, andLocation: newLocation)
+        self.userName.text = newName
+        self.bioLabel.text = newLocation
+      })
+      let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+      alert.addAction(ok)
+      alert.addAction(cancel)
+      self.presentViewController(alert, animated: true, completion: nil)
+//      self.dismissViewControllerAnimated(true, completion: nil)
       
     }
+    
+    let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+
+    alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
+      textField.placeholder = "New Name"
+    }
+    alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
+      //only here to add gap
+      textField.alpha = 0.0
+      textField.userInteractionEnabled = false
+    }
+    alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
+      textField.placeholder = "New Location"
+    }
+    
+    
+    
+    alert.addAction(ok)
+    alert.addAction(cancel)
+    self.presentViewController(alert, animated: true, completion: nil)
+
     
     
   }
 
-}
-
-enum State {
-  case Viewing, Editing
 }

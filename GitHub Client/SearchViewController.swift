@@ -22,6 +22,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
   var collectionView : UICollectionView!
 
   // MARK: -Lifecycle Methods
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     setUpTableView()
@@ -52,7 +53,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     layout.sectionInset.left = screenWidth * 0.03
     layout.sectionInset.right = screenWidth * 0.03
     layout.sectionInset.top = screenWidth * 0.03
-    layout.itemSize = CGSize(width: screenWidth * 0.29, height: screenWidth * 0.29 + 20)
+    layout.itemSize = CGSize(width: screenWidth * 0.29, height: screenWidth * 0.29 + 40)
     
   }
   
@@ -122,29 +123,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
   }
 
-  func setUpTableView() {
-    tableView.rowHeight = UITableViewAutomaticDimension
-    tableView.estimatedRowHeight = 150.0
-    tableView.registerNib(UINib(nibName: "RepoCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "REPO_CELL")
-    tableView.registerNib(UINib(nibName: "UserCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "USER_CELL")
-  }
-  
-  func setUPCollectionView() {
-    
-    let layout = UICollectionViewFlowLayout()
-    let screenWidth = self.tableView.frame.width
-    layout.minimumLineSpacing = screenWidth * 0.03
-    layout.minimumInteritemSpacing = screenWidth * 0.03
-    layout.sectionInset.left = screenWidth * 0.03
-    layout.sectionInset.right = screenWidth * 0.03
-    layout.sectionInset.top = screenWidth * 0.03
-    layout.itemSize = CGSize(width: screenWidth * 0.29, height: screenWidth * 0.34)
-    collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 50, height: 50), collectionViewLayout: layout)
-    collectionView.registerNib(UINib(nibName: "UserCollectionCell", bundle: NSBundle.mainBundle()), forCellWithReuseIdentifier: "USER_COLLECTION_CELL")
-    collectionView.dataSource = self
-    collectionView.delegate = self
-    
-  }
+  // MARK - SearchBarDelegate
   
   func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
     currentScope = Scope(rawValue: selectedScope)!
@@ -179,6 +158,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     }
   
+  // MARK - CollectionView Delegate / Data Source
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if backingArray != nil {
       return backingArray!.count
@@ -209,10 +189,33 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     let selectedUser = backingArray![indexPath.row] as? User
     vc.wantedUserName = selectedUser!.login
     self.splitViewController?.showDetailViewController(vc, sender: self)
-    //self.navigationController?.pushViewController(vc, animated: true)
   }
   
+  // MARK: - Helper Methods
   
+  func setUpTableView() {
+    tableView.rowHeight = UITableViewAutomaticDimension
+    tableView.estimatedRowHeight = 150.0
+    tableView.registerNib(UINib(nibName: "RepoCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "REPO_CELL")
+    tableView.registerNib(UINib(nibName: "UserCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "USER_CELL")
+  }
+  
+  func setUPCollectionView() {
+    
+    let layout = UICollectionViewFlowLayout()
+    let screenWidth = self.tableView.frame.width
+    layout.minimumLineSpacing = screenWidth * 0.03
+    layout.minimumInteritemSpacing = screenWidth * 0.03
+    layout.sectionInset.left = screenWidth * 0.03
+    layout.sectionInset.right = screenWidth * 0.03
+    layout.sectionInset.top = screenWidth * 0.03
+    layout.itemSize = CGSize(width: screenWidth * 0.29, height: screenWidth * 0.34)
+    collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 50, height: 50), collectionViewLayout: layout)
+    collectionView.registerNib(UINib(nibName: "UserCollectionCell", bundle: NSBundle.mainBundle()), forCellWithReuseIdentifier: "USER_COLLECTION_CELL")
+    collectionView.dataSource = self
+    collectionView.delegate = self
+    
+  }
   
   func doSearch(){
     self.tableView.alpha = 0.0
